@@ -4,6 +4,7 @@
         <id>TransADO</id>
         <version>0.0</version>
         <authors>OmniKits</authors>
+        <projectUrl>https://github.com/OmniKits/TransADO</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>-</description>
     </metadata>
