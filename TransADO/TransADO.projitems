@@ -6,8 +6,9 @@
     <SharedGUID>1906b167-8051-48ce-8684-515f46f633ea</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>PostADO</Import_RootNamespace>
+    <Import_RootNamespace>TransADO</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)TransADO.cs" />
   </ItemGroup>
 </Project>
