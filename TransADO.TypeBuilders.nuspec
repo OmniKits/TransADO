@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>TransADO.TypeBuilders</id>
-        <version>0.1</version>
+        <version>0.2-beta1</version>
         <authors>OmniKits</authors>
         <projectUrl>https://github.com/OmniKits/TransADO</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>-</description>
         <dependencies>
-            <dependency id="TypeBuilders" version="0.5" />
+            <dependency id="TypeBuilders" version="0.6-beta1" />
         </dependencies>
     </metadata>
     <files>

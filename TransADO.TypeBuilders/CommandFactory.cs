@@ -36,21 +36,21 @@ namespace TransADO.TypeBuilders
 
         static readonly FieldInfo FieldDBNull = typeof(DBNull).GetField(nameof(DBNull.Value));
 
-        public static NameProvider DefaultTranslator { get; } = new NameProvider();
+        public static NameProvider DefaultNameProvider { get; } = new NameProvider();
 
-        public NameProvider Translator { get; }
-        public CommandFactory(NameProvider translator = null)
+        public NameProvider NameProvider { get; }
+        public CommandFactory(NameProvider nameProvider = null)
         {
-            Translator = translator ?? DefaultTranslator;
+            NameProvider = nameProvider ?? DefaultNameProvider;
         }
 
         public static CommandFactory Default { get; } = new CommandFactory();
 
         public virtual CommandType GetCommandType(MethodInfo method) => CommandType.StoredProcedure;
-        public virtual string GetCommandText(MethodInfo method) => "\"" + Translator.GetStoredProcedureName(method) + "\"";
-        public virtual string GetParameterName(ParameterInfo param) => "@" + Translator.GetParameterName(param);
+        public virtual string GetCommandText(MethodInfo method) => "\"" + NameProvider.GetStoredProcedureName(method) + "\"";
+        public virtual string GetParameterName(ParameterInfo param) => "@" + NameProvider.GetParameterName(param);
 
-        public override void ImplementInterfaceMethod(MethodInfo declaration, MethodBuilder implement, FieldInfo input)
+        public override void ImplementMethod(MethodInfo declaration, MethodBuilder implement, FieldInfo input)
         {
             var returnType = declaration.ReturnType;
             if (!TypeCommand.IsAssignableFrom(returnType))
