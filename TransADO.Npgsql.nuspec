@@ -1,14 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>TransADO</id>
+        <id>TransADO.Npgsql</id>
         <version>0.1</version>
         <authors>OmniKits</authors>
         <projectUrl>https://github.com/OmniKits/TransADO</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>-</description>
+        <dependencies>
+            <dependency id="Npgsql" version="3.1.4" />
+            <dependency id="TypeBuilders" version="0.5" />
+            <dependency id="TransADO.TypeBuilders" version="0.1" />
+        </dependencies>
     </metadata>
     <files>
-        <file src="Release\NET40\TransADO.NET.dll" target="lib\net40-client\" />
+        <file src="Release\Npgsql\TransADO.Npgsql.dll" target="lib\net45\" />
     </files>
 </package>
