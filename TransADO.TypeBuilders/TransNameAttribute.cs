@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace TransADO.TypeBuilders
 {
-    [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Module | AttributeTargets.Parameter | AttributeTargets.ReturnValue)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Parameter)]
     public class TransNameAttribute : Attribute
     {
         public string Name { get; }

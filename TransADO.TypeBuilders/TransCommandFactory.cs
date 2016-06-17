@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -28,9 +29,15 @@ namespace TransADO.TypeBuilders
         static readonly MethodInfo MethodGetParameters = TypeCommand.GetProperty(nameof(IDbCommand.Parameters)).GetGetMethod();
         static readonly MethodInfo MethodCreateParameter = TypeCommand.GetMethod(nameof(IDbCommand.CreateParameter));
 
-        static readonly Type TypeParameter = typeof(IDataParameter);
-        static readonly MethodInfo MethodSetParameterName = TypeParameter.GetProperty(nameof(IDataParameter.ParameterName)).GetSetMethod();
-        static readonly MethodInfo MethodSetValue = TypeParameter.GetProperty(nameof(IDataParameter.Value)).GetSetMethod();
+        static readonly Type TypeParameter = typeof(IDbDataParameter);
+        static readonly MethodInfo MethodSetParameterName = TypeParameter.GetProperty(nameof(IDbDataParameter.ParameterName)).GetSetMethod();
+        static readonly MethodInfo MethodSetValue = TypeParameter.GetProperty(nameof(IDbDataParameter.Value)).GetSetMethod();
+
+        static readonly Type TypeParamAttribute = typeof(TransParamAttribute);
+        static readonly MethodInfo MethodSetDbType = TypeParameter.GetProperty(nameof(IDbDataParameter.DbType)).GetSetMethod();
+        static readonly MethodInfo MethodSetPrecision = TypeParameter.GetProperty(nameof(IDbDataParameter.Precision)).GetSetMethod();
+        static readonly MethodInfo MethodSetScale = TypeParameter.GetProperty(nameof(IDbDataParameter.Scale)).GetSetMethod();
+        static readonly MethodInfo MethodSetSize = TypeParameter.GetProperty(nameof(IDbDataParameter.Size)).GetSetMethod();
 
         static readonly MethodInfo MethodAddParameter = typeof(IList).GetMethod(nameof(IList.Add));
 
@@ -64,9 +71,6 @@ namespace TransADO.TypeBuilders
             ilGen.Emit(OpCodes.Ldfld, input);
 
             ilGen.Emit(OpCodes.Callvirt, MethodCreateCommand);
-
-            ilGen.Emit(OpCodes.Dup);
-            //ilGen.Emit(OpCodes.Dup);
             ilGen.Emit(OpCodes.Stloc, cmd);
 
             ilGen.Emit(OpCodes.Ldloc, cmd);
@@ -91,6 +95,42 @@ namespace TransADO.TypeBuilders
                 ilGen.Emit(OpCodes.Dup);
                 ilGen.Emit(OpCodes.Ldstr, GetParameterName(param));
                 ilGen.Emit(OpCodes.Callvirt, MethodSetParameterName);
+
+                var paramAttr = (TransParamAttribute)param.GetCustomAttributes(TypeParamAttribute, true).SingleOrDefault();
+                if (paramAttr != null)
+                {
+                    var dbType = paramAttr.DbType;
+                    if (dbType.HasValue)
+                    {
+                        ilGen.Emit(OpCodes.Dup);
+                        ilGen.Emit(OpCodes.Ldc_I4, (int)dbType.Value);
+                        ilGen.Emit(OpCodes.Callvirt, MethodSetDbType);
+                    }
+
+                    var precision = paramAttr.Precision;
+                    if (precision.HasValue)
+                    {
+                        ilGen.Emit(OpCodes.Dup);
+                        ilGen.Emit(OpCodes.Ldc_I4, precision.Value);
+                        ilGen.Emit(OpCodes.Callvirt, MethodSetPrecision);
+                    }
+
+                    var scale = paramAttr.Scale;
+                    if (scale.HasValue)
+                    {
+                        ilGen.Emit(OpCodes.Dup);
+                        ilGen.Emit(OpCodes.Ldc_I4, scale.Value);
+                        ilGen.Emit(OpCodes.Callvirt, MethodSetScale);
+                    }
+
+                    var size = paramAttr.Size;
+                    if (size.HasValue)
+                    {
+                        ilGen.Emit(OpCodes.Dup);
+                        ilGen.Emit(OpCodes.Ldc_I4, size.Value);
+                        ilGen.Emit(OpCodes.Callvirt, MethodSetSize);
+                    }
+                }
 
                 ilGen.Emit(OpCodes.Dup);
                 ilGen.Emit(OpCodes.Ldarg_S, (byte)i);
@@ -124,6 +164,7 @@ namespace TransADO.TypeBuilders
             }
             ilGen.Emit(OpCodes.Pop); // pop ParameterCollection
 
+            ilGen.Emit(OpCodes.Ldloc, cmd);
             ilGen.Emit(OpCodes.Castclass, returnType);
             ilGen.Emit(OpCodes.Ret);
         }

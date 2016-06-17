@@ -51,6 +51,7 @@
       <Link>Properties\Version.cs</Link>
     </Compile>
     <Compile Include="TransCommandFactory.cs" />
+    <Compile Include="TransParamAttribute.cs" />
     <Compile Include="TransNameAttribute.cs" />
     <Compile Include="TransNameProvider.cs" />
   </ItemGroup>
