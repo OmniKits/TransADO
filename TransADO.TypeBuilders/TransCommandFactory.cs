@@ -29,15 +29,15 @@ namespace TransADO.TypeBuilders
         static readonly MethodInfo MethodGetParameters = TypeCommand.GetProperty(nameof(IDbCommand.Parameters)).GetGetMethod();
         static readonly MethodInfo MethodCreateParameter = TypeCommand.GetMethod(nameof(IDbCommand.CreateParameter));
 
-        static readonly Type TypeParameter = typeof(IDbDataParameter);
-        static readonly MethodInfo MethodSetParameterName = TypeParameter.GetProperty(nameof(IDbDataParameter.ParameterName)).GetSetMethod();
-        static readonly MethodInfo MethodSetValue = TypeParameter.GetProperty(nameof(IDbDataParameter.Value)).GetSetMethod();
-
+        static readonly Type TypeDataParameter = typeof(IDataParameter);
+        static readonly MethodInfo MethodSetParameterName = TypeDataParameter.GetProperty(nameof(IDataParameter.ParameterName)).GetSetMethod();
+        static readonly MethodInfo MethodSetValue = TypeDataParameter.GetProperty(nameof(IDataParameter.Value)).GetSetMethod();
         static readonly Type TypeParamAttribute = typeof(TransParamAttribute);
-        static readonly MethodInfo MethodSetDbType = TypeParameter.GetProperty(nameof(IDbDataParameter.DbType)).GetSetMethod();
-        static readonly MethodInfo MethodSetPrecision = TypeParameter.GetProperty(nameof(IDbDataParameter.Precision)).GetSetMethod();
-        static readonly MethodInfo MethodSetScale = TypeParameter.GetProperty(nameof(IDbDataParameter.Scale)).GetSetMethod();
-        static readonly MethodInfo MethodSetSize = TypeParameter.GetProperty(nameof(IDbDataParameter.Size)).GetSetMethod();
+        static readonly MethodInfo MethodSetDbType = TypeDataParameter.GetProperty(nameof(IDataParameter.DbType)).GetSetMethod();
+        static readonly Type TypeDbDataParameter = typeof(IDbDataParameter);
+        static readonly MethodInfo MethodSetPrecision = TypeDbDataParameter.GetProperty(nameof(IDbDataParameter.Precision)).GetSetMethod();
+        static readonly MethodInfo MethodSetScale = TypeDbDataParameter.GetProperty(nameof(IDbDataParameter.Scale)).GetSetMethod();
+        static readonly MethodInfo MethodSetSize = TypeDbDataParameter.GetProperty(nameof(IDbDataParameter.Size)).GetSetMethod();
 
         static readonly MethodInfo MethodAddParameter = typeof(IList).GetMethod(nameof(IList.Add));
 
@@ -99,7 +99,7 @@ namespace TransADO.TypeBuilders
                 var paramAttr = (TransParamAttribute)param.GetCustomAttributes(TypeParamAttribute, true).SingleOrDefault();
                 if (paramAttr != null)
                 {
-                    var dbType = paramAttr.DbType;
+                    var dbType = paramAttr.DbTypeNullable;
                     if (dbType.HasValue)
                     {
                         ilGen.Emit(OpCodes.Dup);
@@ -107,7 +107,7 @@ namespace TransADO.TypeBuilders
                         ilGen.Emit(OpCodes.Callvirt, MethodSetDbType);
                     }
 
-                    var precision = paramAttr.Precision;
+                    var precision = paramAttr.PrecisionNullable;
                     if (precision.HasValue)
                     {
                         ilGen.Emit(OpCodes.Dup);
@@ -115,7 +115,7 @@ namespace TransADO.TypeBuilders
                         ilGen.Emit(OpCodes.Callvirt, MethodSetPrecision);
                     }
 
-                    var scale = paramAttr.Scale;
+                    var scale = paramAttr.ScaleNullable;
                     if (scale.HasValue)
                     {
                         ilGen.Emit(OpCodes.Dup);
@@ -123,7 +123,7 @@ namespace TransADO.TypeBuilders
                         ilGen.Emit(OpCodes.Callvirt, MethodSetScale);
                     }
 
-                    var size = paramAttr.Size;
+                    var size = paramAttr.SizeNullable;
                     if (size.HasValue)
                     {
                         ilGen.Emit(OpCodes.Dup);
