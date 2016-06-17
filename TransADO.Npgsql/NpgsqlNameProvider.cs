@@ -6,15 +6,12 @@ namespace TransADO.Npgsql
     using global::Npgsql;
     using TypeBuilders;
 
-    public class NpgsqlNameProvider : NameProvider, INpgsqlNameTranslator
+    public class NpgsqlNameProvider : TransNameProvider, INpgsqlNameTranslator
     {
         public static new NpgsqlNameProvider DefaultInstance { get; } = new NpgsqlNameProvider();
 
-        public override string TransName(string original, ICustomAttributeProvider attributeProvider) => original;
-        public override string GetObjectName(MemberInfo member)
-        {
-            return "\"" + TransName(member.Name, member) + "\"";
-        }
+
+        public override string GetObjectName(MemberInfo member)=> "\"" + TransName(member.Name, member) + "\"";
         public override string GetStoredProcedureName(MethodInfo method) => GetObjectName(method);
         public override string GetParameterName(ParameterInfo param) => TransName(param.Name, param);
 

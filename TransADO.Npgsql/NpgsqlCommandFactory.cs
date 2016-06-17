@@ -11,11 +11,11 @@ namespace TransADO.Npgsql
 {
     using TypeBuilders;
 
-    public class NpgsqlCommandFactory : CommandFactory
+    public class NpgsqlCommandFactory : TransCommandFactory
     {
         public static new NpgsqlNameProvider DefaultNameProvider { get; } = new NpgsqlNameProvider();
 
-        public NpgsqlCommandFactory(NameProvider nameProvider = null)
+        public NpgsqlCommandFactory(TransNameProvider nameProvider = null)
             : base(nameProvider ?? DefaultNameProvider)
         { }
 

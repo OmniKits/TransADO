@@ -16,7 +16,7 @@ namespace TransADO.TypeBuilders
          => type.IsGenericType && !type.IsGenericTypeDefinition && type.GetGenericTypeDefinition() == TypeNullable;
     }
 
-    public class CommandFactory : ConstrainedType<IDbConnection>
+    public class TransCommandFactory : ConstrainedType<IDbConnection>
     {
         static readonly Type TypeObject = typeof(object);
 
@@ -36,15 +36,15 @@ namespace TransADO.TypeBuilders
 
         static readonly FieldInfo FieldDBNull = typeof(DBNull).GetField(nameof(DBNull.Value));
 
-        public static NameProvider DefaultNameProvider { get; } = new NameProvider();
+        public static TransNameProvider DefaultNameProvider { get; } = new TransNameProvider();
 
-        public NameProvider NameProvider { get; }
-        public CommandFactory(NameProvider nameProvider = null)
+        public TransNameProvider NameProvider { get; }
+        public TransCommandFactory(TransNameProvider nameProvider = null)
         {
             NameProvider = nameProvider ?? DefaultNameProvider;
         }
 
-        public static CommandFactory Default { get; } = new CommandFactory();
+        public static TransCommandFactory Default { get; } = new TransCommandFactory();
 
         public virtual CommandType GetCommandType(MethodInfo method) => CommandType.StoredProcedure;
         public virtual string GetCommandText(MethodInfo method) => "\"" + NameProvider.GetStoredProcedureName(method) + "\"";
