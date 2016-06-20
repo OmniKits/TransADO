@@ -43,7 +43,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="TypeBuilders, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TypeBuilders.0.6-beta1\lib\net40-client\TypeBuilders.dll</HintPath>
+      <HintPath>..\packages\TypeBuilders.0.6-beta2\lib\net40-client\TypeBuilders.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
