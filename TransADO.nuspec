@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>TransADO</id>
-        <version>0.1</version>
+        <version>0.2-b1-r4</version>
         <authors>OmniKits</authors>
         <projectUrl>https://github.com/OmniKits/TransADO</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,5 +10,6 @@
     </metadata>
     <files>
         <file src="Release\NET40\TransADO.NET.dll" target="lib\net40-client\" />
+        <file src="Release\NET45\TransADO.NET.dll" target="lib\net45\" />
     </files>
 </package>

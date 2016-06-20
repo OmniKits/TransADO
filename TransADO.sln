@@ -11,8 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransADO.TypeBuilders", "Tr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransADO.Npgsql", "TransADO.Npgsql\TransADO.Npgsql.csproj", "{1CE855BC-3D35-4DC2-9991-C80DDDBF68F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransADO.NET45", "TransADO.NET45\TransADO.NET45.csproj", "{8E6515D2-8BC9-4A9A-AF48-80CB0F121315}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		TransADO\TransADO.projitems*{8e6515d2-8bc9-4a9a-af48-80cb0f121315}*SharedItemsImports = 4
 		TransADO\TransADO.projitems*{1906b167-8051-48ce-8684-515f46f633ea}*SharedItemsImports = 13
 		TransADO\TransADO.projitems*{72f06c81-1630-497f-85ef-774c191fbb1a}*SharedItemsImports = 4
 	EndGlobalSection
@@ -33,6 +36,10 @@ Global
 		{1CE855BC-3D35-4DC2-9991-C80DDDBF68F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CE855BC-3D35-4DC2-9991-C80DDDBF68F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CE855BC-3D35-4DC2-9991-C80DDDBF68F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E6515D2-8BC9-4A9A-AF48-80CB0F121315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E6515D2-8BC9-4A9A-AF48-80CB0F121315}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E6515D2-8BC9-4A9A-AF48-80CB0F121315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E6515D2-8BC9-4A9A-AF48-80CB0F121315}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
