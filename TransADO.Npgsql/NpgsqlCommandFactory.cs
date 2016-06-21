@@ -67,10 +67,11 @@ namespace TransADO.Npgsql
 
             sb.Append(')');
 
-            if (sb.Length != len)
-                Trace.WriteLine($"sb: {len} !! {sb.Length} / {sb.Capacity}");
+            var sql = sb.ToString();
+            if (sql.Length != len)
+                Trace.WriteLine($"sb: {len} !! {sql.Length} / {sb.Capacity} => \r\n{sql}");
 
-            return sb.ToString();
+            return sql;
         }
         public override string GetParameterName(ParameterInfo param) => NameProvider.GetParameterName(param);
     }
