@@ -2,16 +2,15 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>TransADO.Npgsql</id>
-        <version>0.2-beta2-r3</version>
+        <version>0.2-beta3</version>
         <authors>OmniKits</authors>
         <projectUrl>https://github.com/OmniKits/TransADO</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>-</description>
-        <serviceable>false</serviceable>
         <dependencies>
             <dependency id="Npgsql" version="3.1.4" />
             <dependency id="TypeBuilders" version="0.6-beta1" />
-            <dependency id="TransADO.TypeBuilders" version="0.2-beta2-r5" />
+            <dependency id="TransADO.TypeBuilders" version="0.2-beta3" />
         </dependencies>
     </metadata>
     <files>

@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AsIs, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AsIs.0.9\lib\portable-net4+win8+wpa+MonoAndroid+Xamarin.iOS\AsIs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,9 +48,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\TransADO\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>
@@ -54,6 +55,11 @@
     <Compile Include="TransParamAttribute.cs" />
     <Compile Include="TransNameAttribute.cs" />
     <Compile Include="TransNameProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -10,7 +10,6 @@ namespace TransADO.Npgsql
     {
         public static new NpgsqlNameProvider DefaultInstance { get; } = new NpgsqlNameProvider();
 
-
         public override string GetObjectName(MemberInfo member)=> "\"" + TransName(member.Name, member) + "\"";
         public override string GetStoredProcedureName(MethodInfo method) => GetObjectName(method);
         public override string GetParameterName(ParameterInfo param) => TransName(param.Name, param);

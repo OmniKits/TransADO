@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
@@ -53,8 +52,9 @@ namespace TransADO.TypeBuilders
 
         public static TransCommandFactory Default { get; } = new TransCommandFactory();
 
-        public virtual CommandType GetCommandType(MethodInfo method) => CommandType.StoredProcedure;
-        public virtual string GetCommandText(MethodInfo method) => "\"" + NameProvider.GetStoredProcedureName(method) + "\"";
+        protected virtual string GetCommandCore(MethodInfo method, ref CommandType type) => "\"" + NameProvider.GetStoredProcedureName(method) + "\"";
+        public virtual string GetCommandText(MethodInfo method, ref CommandType type) => GetCommandCore(method, ref type);
+
         public virtual string GetParameterName(ParameterInfo param) => "@" + NameProvider.GetParameterName(param);
 
         public override void ImplementMethod(MethodInfo declaration, MethodBuilder implement, FieldInfo input)
@@ -73,12 +73,15 @@ namespace TransADO.TypeBuilders
             ilGen.Emit(OpCodes.Callvirt, MethodCreateCommand);
             ilGen.Emit(OpCodes.Stloc, cmd);
 
+            var type = CommandType.StoredProcedure;
+            var text = GetCommandText(declaration, ref type);
+
             ilGen.Emit(OpCodes.Ldloc, cmd);
-            ilGen.Emit(OpCodes.Ldc_I4, (int)GetCommandType(declaration));
+            ilGen.Emit(OpCodes.Ldc_I4, (int)type);
             ilGen.Emit(OpCodes.Callvirt, MethodSetCommandType);
 
             ilGen.Emit(OpCodes.Ldloc, cmd);
-            ilGen.Emit(OpCodes.Ldstr, GetCommandText(declaration));
+            ilGen.Emit(OpCodes.Ldstr, text);
             ilGen.Emit(OpCodes.Callvirt, MethodSetCommandText);
 
             ilGen.Emit(OpCodes.Ldloc, cmd);

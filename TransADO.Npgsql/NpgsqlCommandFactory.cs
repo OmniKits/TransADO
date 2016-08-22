@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TransADO.Npgsql
 {
@@ -21,7 +18,6 @@ namespace TransADO.Npgsql
 
         public static new NpgsqlCommandFactory Default { get; } = new NpgsqlCommandFactory();
 
-        public override CommandType GetCommandType(MethodInfo method) => CommandType.Text;
         static void AppendParameter(StringBuilder sb, string pn)
         {
             sb.Append('"');
@@ -34,8 +30,10 @@ namespace TransADO.Npgsql
             sb.Append(':');
             sb.Append(pn);
         }
-        public override string GetCommandText(MethodInfo method)
+        protected override string GetCommandCore(MethodInfo method, ref CommandType type)
         {
+            type = CommandType.Text;
+
             const string SELECT = "SELECT ";
 
             var name = NameProvider.GetStoredProcedureName(method);
